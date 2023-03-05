@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  turkey-couch:
+    build: couch
+    ports:
+      - "5984:5984"
+    volumes:
+      - couch-volume:/opt/couchdb/data
+
+volumes:
+  couch-volume:
+    external: false
+
