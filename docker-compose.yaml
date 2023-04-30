@@ -1,18 +1,11 @@
 version: '3'
 
 services:
-  turkey-couch:
-    build: couch
-    container_name: turkey-couch
-    restart: unless-stopped
-    ports:
-      - "5984:5984"
-    volumes:
-      - couch-data:/opt/couchdb/data
 
   postgres:
     image: postgres:15.2
     restart: unless-stopped
+    container_name: postgres
     environment:
       POSTGRES_DB: ${POSTGRESQL_DB}
       POSTGRES_USER: ${POSTGRESQL_USER}
@@ -41,10 +34,24 @@ services:
     networks:
       - local-keycloak
 
+  mongodb:
+    image: mongo:5.0.17
+    container_name: turkey_mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INIT}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INIT_SECRET}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ADMIN}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ADMIN_SECRET}
+    volumes:
+      - mongo-data:/data/db
+
 volumes:
-  couch-data:
-    external: false
   keycloak-data:
+    external: false
+  mongo-data:
     external: false
 
 networks:
