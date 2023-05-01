@@ -1,7 +1,7 @@
 db.createUser(
         {
-            user: "turkeydb",
-            pwd: "turkey123",
+            user: "turkeyuser",
+            pwd: "turkeypass",
             roles: [
                 {
                     role: "readWrite",
