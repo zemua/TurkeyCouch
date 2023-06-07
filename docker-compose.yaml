@@ -4,7 +4,6 @@ services:
 
   postgres:
     image: postgres:15.2
-    restart: unless-stopped
     container_name: postgres
     environment:
       POSTGRES_DB: ${POSTGRESQL_DB}
@@ -30,14 +29,12 @@ services:
     image: jboss/keycloak:${KEYCLOAK_VERSION}
     ports:
       - "28080:8080"
-    restart: unless-stopped
     networks:
       - local-keycloak
 
   turkeymysql:
     image: mysql/mysql-server:8.0.32
     container_name: turkeymysql
-    restart: always
     environment:
       MYSQL_DATABASE: ${MYSQL_DB}
       MYSQL_USER: ${MYSQL_USER}
